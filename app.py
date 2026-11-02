@@ -18,28 +18,49 @@ st.set_page_config(page_title="Last Stretch", page_icon="🟥", layout="wide")
 CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap');
+
 :root{--ink:#15130F;--paper:#F2EDE4;--card:#FBF8F2;--red:#E8452C;--mute:#6F6A5F;
 --mono:'JetBrains Mono',monospace;--serif:'Fraunces',serif;}
+
+/* ---------- base ---------- */
 .stApp{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',sans-serif;}
+.stApp label p,.stApp [data-testid="stMarkdownContainer"] p,.stApp [data-testid="stCaptionContainer"]{color:var(--ink);}
 [data-testid="stHeader"]{background:transparent;}
 #MainMenu,footer,[data-testid="stToolbar"]{visibility:hidden;}
 .block-container{max-width:1180px;padding-top:2rem;}
-[data-testid="stSidebar"]{background:var(--card);border-right:2px solid var(--ink);}
-[data-baseweb="input"] input{font-family:var(--mono);}
 [data-testid="stAlert"]{border:2px solid var(--ink);border-radius:0;}
+[data-baseweb="input"] input{font-family:var(--mono);}
 
+/* ---------- sidebar ---------- */
+[data-testid="stSidebar"]{background:var(--card)!important;border-right:2px solid var(--ink);}
+[data-testid="stSidebar"] *{color:var(--ink);}
+[data-testid="stSidebar"] label p,[data-testid="stSidebar"] h3{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;}
+[data-testid="stSidebar"] [data-baseweb="input"],[data-testid="stSidebar"] [data-baseweb="base-input"]{background:var(--paper)!important;border-radius:0!important;}
+[data-testid="stSidebar"] [data-baseweb="input"]{border:2px solid var(--ink)!important;}
+[data-testid="stSidebar"] input{background:var(--paper)!important;color:var(--ink)!important;}
+[data-testid="stSidebar"] [data-testid="stNumberInputStepDown"],
+[data-testid="stSidebar"] [data-testid="stNumberInputStepUp"]{background:var(--card)!important;color:var(--ink)!important;}
+[data-testid="stSidebar"] svg{fill:var(--ink);}
+[data-testid="stSlider"] [role="slider"]{background:var(--red)!important;}
+[data-baseweb="select"]>div{background:var(--card)!important;border-radius:0!important;border:2px solid var(--ink)!important;}
+
+/* ---------- buttons ---------- */
+.stButton>button,.stDownloadButton>button{border:2px solid var(--ink);border-radius:0;background:var(--card);color:var(--ink);font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.06em;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s;}
+.stButton>button p,.stDownloadButton>button p{color:inherit!important;}
+.stButton>button:hover,.stDownloadButton>button:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);border-color:var(--ink);color:var(--ink);}
+button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var(--red)!important;color:#fff!important;}
+
+/* ---------- masthead ---------- */
 .mast{border-bottom:4px solid var(--ink);padding-bottom:18px;margin-bottom:8px;}
 .kicker{font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;color:var(--mute);}
 .mast h1{font-family:var(--serif);font-weight:800;font-size:clamp(3.4rem,9vw,6.5rem);line-height:.88;margin:.3rem 0 .6rem;padding:0;letter-spacing:-.03em;}
 .mast h1 em{color:var(--red);font-weight:500;}
 .mast p{font-size:1.05rem;max-width:560px;margin:0;}
 
+/* ---------- section headers ---------- */
 .sec{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:6px;margin:2.4rem 0 1rem;}
 
-.stButton>button,.stDownloadButton>button{border:2px solid var(--ink);border-radius:0;background:var(--card);color:var(--ink);font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.06em;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s;}
-.stButton>button:hover,.stDownloadButton>button:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);border-color:var(--ink);color:var(--ink);}
-button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var(--red)!important;color:#fff!important;}
-
+/* ---------- countdown cards ---------- */
 .cds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
 .cd{background:var(--card);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:16px 18px;animation:rise .5s both;}
 .cd.hot{background:var(--red);color:#fff;}
@@ -54,6 +75,7 @@ button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var
 .bar i{display:block;height:100%;background:var(--c);}
 .cd.hot .bar i{background:#fff;}
 
+/* ---------- day board ---------- */
 .strip{display:flex;gap:16px;overflow-x:auto;padding:6px 8px 26px 2px;}
 .day{flex:0 0 218px;background:var(--card);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:12px 14px;animation:rise .5s both;}
 .day.today{outline:4px solid var(--red);outline-offset:3px;}
@@ -73,20 +95,10 @@ button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var
 .load i{display:block;height:100%;background:currentColor;}
 .load.over i{background:var(--red);}
 
+/* ---------- misc ---------- */
 .empty{border:2px dashed var(--ink);padding:14px 16px;font-family:var(--serif);font-style:italic;font-size:1.1rem;}
 .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-family:var(--mono);font-weight:700;padding:6px 14px;transform:rotate(-3deg);letter-spacing:.12em;margin-top:12px;}
 @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
-
-
-[data-testid="stSidebar"] *{color:var(--ink)!important;}
-[data-testid="stSidebar"] label p,[data-testid="stSidebar"] h3{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;}
-[data-testid="stSidebar"] [data-baseweb="input"],
-[data-testid="stSidebar"] [data-baseweb="base-input"],
-[data-testid="stSidebar"] input{background:var(--paper)!important;color:var(--ink)!important;border-radius:0!important;}
-[data-testid="stSidebar"] [data-baseweb="input"]{border:2px solid var(--ink)!important;}
-[data-testid="stSidebar"] button{background:var(--card)!important;color:var(--ink)!important;border-radius:0!important;}
-[data-testid="stSidebar"] svg{fill:var(--ink)!important;}
-[data-testid="stSlider"] [role="slider"]{background:var(--red)!important;}
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
