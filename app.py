@@ -11,7 +11,7 @@ MODEL = "openai/gpt-oss-120b"
 SESSION_TYPES = ["Learn", "Practice", "Revise", "Mock test"]
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 MAX_DAYS = 45
-PALETTE = ["#E8452C", "#2F6F6B", "#E9B44C", "#3B4FA3", "#8C5A9E", "#6B8F3A"]
+PALETTE = ["#FF5A3C", "#3FB8AF", "#F2B94B", "#7B8CFF", "#C77DFF", "#8FCB4A"]
 
 st.set_page_config(page_title="Last Stretch", page_icon="🟥", layout="wide")
 
@@ -19,51 +19,56 @@ CSS = """
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,500&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap');
 
-:root{--ink:#15130F;--paper:#F2EDE4;--card:#FBF8F2;--red:#E8452C;--mute:#6F6A5F;
---mono:'JetBrains Mono',monospace;--serif:'Fraunces',serif;}
+:root{
+  --bg:#121110; --card:#1C1A17; --ink:#F2EDE4; --line:#F2EDE4;
+  --sh:#34302A; --red:#FF5A3C; --mute:#9A9488; --dash:#4A453D;
+  --mono:'JetBrains Mono',monospace; --serif:'Fraunces',serif;
+}
 
 /* ---------- base ---------- */
-.stApp{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',sans-serif;}
-.stApp label p,.stApp [data-testid="stMarkdownContainer"] p,.stApp [data-testid="stCaptionContainer"]{color:var(--ink);}
+.stApp{background:var(--bg);color:var(--ink);font-family:'Instrument Sans',sans-serif;}
+.stApp label p,.stApp [data-testid="stMarkdownContainer"] p,.stApp [data-testid="stCaptionContainer"],.stApp [data-testid="stCaptionContainer"] p{color:var(--ink);}
+[data-testid="stCaptionContainer"]{opacity:.7;}
 [data-testid="stHeader"]{background:transparent;}
 #MainMenu,footer,[data-testid="stToolbar"]{visibility:hidden;}
 .block-container{max-width:1180px;padding-top:2rem;}
-[data-testid="stAlert"]{border:2px solid var(--ink);border-radius:0;}
-[data-baseweb="input"] input{font-family:var(--mono);}
+[data-testid="stAlert"]{background:var(--card);border:2px solid var(--line);border-radius:0;color:var(--ink);}
+[data-testid="stAlert"] *{color:var(--ink);}
 
 /* ---------- sidebar ---------- */
-[data-testid="stSidebar"]{background:var(--card)!important;border-right:2px solid var(--ink);}
+[data-testid="stSidebar"]{background:var(--card)!important;border-right:2px solid var(--line);}
 [data-testid="stSidebar"] *{color:var(--ink);}
 [data-testid="stSidebar"] label p,[data-testid="stSidebar"] h3{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;}
-[data-testid="stSidebar"] [data-baseweb="input"],[data-testid="stSidebar"] [data-baseweb="base-input"]{background:var(--paper)!important;border-radius:0!important;}
-[data-testid="stSidebar"] [data-baseweb="input"]{border:2px solid var(--ink)!important;}
-[data-testid="stSidebar"] input{background:var(--paper)!important;color:var(--ink)!important;}
+[data-testid="stSidebar"] [data-baseweb="input"],[data-testid="stSidebar"] [data-baseweb="base-input"]{background:var(--bg)!important;border-radius:0!important;}
+[data-testid="stSidebar"] [data-baseweb="input"]{border:2px solid var(--line)!important;}
+[data-testid="stSidebar"] input{background:var(--bg)!important;color:var(--ink)!important;font-family:var(--mono);}
 [data-testid="stSidebar"] [data-testid="stNumberInputStepDown"],
 [data-testid="stSidebar"] [data-testid="stNumberInputStepUp"]{background:var(--card)!important;color:var(--ink)!important;}
 [data-testid="stSidebar"] svg{fill:var(--ink);}
 [data-testid="stSlider"] [role="slider"]{background:var(--red)!important;}
-[data-baseweb="select"]>div{background:var(--card)!important;border-radius:0!important;border:2px solid var(--ink)!important;}
+[data-baseweb="select"]>div{background:var(--card)!important;border-radius:0!important;border:2px solid var(--line)!important;}
 
 /* ---------- buttons ---------- */
-.stButton>button,.stDownloadButton>button{border:2px solid var(--ink);border-radius:0;background:var(--card);color:var(--ink);font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.06em;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s;}
+.stButton>button,.stDownloadButton>button{border:2px solid var(--line);border-radius:0;background:var(--card);color:var(--ink);font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.06em;box-shadow:4px 4px 0 var(--sh);transition:transform .08s,box-shadow .08s;}
 .stButton>button p,.stDownloadButton>button p{color:inherit!important;}
-.stButton>button:hover,.stDownloadButton>button:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);border-color:var(--ink);color:var(--ink);}
-button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var(--red)!important;color:#fff!important;}
+.stButton>button:hover,.stDownloadButton>button:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--sh);border-color:var(--line);color:var(--ink);}
+button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important;box-shadow:4px 4px 0 rgba(255,90,60,.3);}
 
 /* ---------- masthead ---------- */
-.mast{border-bottom:4px solid var(--ink);padding-bottom:18px;margin-bottom:8px;}
+.mast{border-bottom:4px solid var(--line);padding-bottom:18px;margin-bottom:8px;}
 .kicker{font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;color:var(--mute);}
-.mast h1{font-family:var(--serif);font-weight:800;font-size:clamp(3.4rem,9vw,6.5rem);line-height:.88;margin:.3rem 0 .6rem;padding:0;letter-spacing:-.03em;}
+.mast h1{font-family:var(--serif);font-weight:800;font-size:clamp(3.4rem,9vw,6.5rem);line-height:.88;margin:.3rem 0 .6rem;padding:0;letter-spacing:-.03em;color:var(--ink);}
 .mast h1 em{color:var(--red);font-weight:500;}
-.mast p{font-size:1.05rem;max-width:560px;margin:0;}
+.mast p{font-size:1.05rem;max-width:560px;margin:0;color:var(--ink);}
 
 /* ---------- section headers ---------- */
-.sec{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:6px;margin:2.4rem 0 1rem;}
+.sec{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--line);padding-bottom:6px;margin:2.4rem 0 1rem;color:var(--ink);}
+.sec span:last-child{color:var(--mute);}
 
 /* ---------- countdown cards ---------- */
 .cds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
-.cd{background:var(--card);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:16px 18px;animation:rise .5s both;}
-.cd.hot{background:var(--red);color:#fff;}
+.cd{background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:6px 6px 0 var(--sh);padding:16px 18px;animation:rise .5s both;}
+.cd.hot{background:var(--red);color:#fff;border-color:var(--red);box-shadow:6px 6px 0 rgba(255,90,60,.3);}
 .cd .nm{font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;}
 .sw{display:inline-block;width:11px;height:11px;background:var(--c);border:1.5px solid currentColor;margin-right:8px;}
 .cd .num{font-family:var(--serif);font-weight:800;font-size:4.6rem;line-height:.95;margin-top:6px;}
@@ -77,16 +82,17 @@ button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var
 
 /* ---------- day board ---------- */
 .strip{display:flex;gap:16px;overflow-x:auto;padding:6px 8px 26px 2px;}
-.day{flex:0 0 218px;background:var(--card);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:12px 14px;animation:rise .5s both;}
+.day{flex:0 0 218px;background:var(--card);color:var(--ink);border:2px solid var(--line);box-shadow:5px 5px 0 var(--sh);padding:12px 14px;animation:rise .5s both;}
 .day.today{outline:4px solid var(--red);outline-offset:3px;}
-.day.past{opacity:.5;}
-.day.exam{background:var(--ink);color:var(--paper);}
+.day.past{opacity:.45;}
+.day.exam{background:var(--ink);color:var(--bg);}
 .dh{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
 .dn{font-family:var(--serif);font-weight:800;font-size:2.6rem;line-height:1;}
 .dm{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;}
 .tag{margin-left:auto;background:var(--red);color:#fff;font-family:var(--mono);font-size:.62rem;padding:2px 6px;letter-spacing:.1em;}
 .ex{border:2px solid var(--red);color:var(--red);font-family:var(--mono);font-weight:700;font-size:.78rem;padding:4px 8px;margin:6px 0;letter-spacing:.08em;}
-.ses{display:flex;gap:9px;padding:8px 0;border-top:1px dashed #a39c8c;}
+.ses{display:flex;gap:9px;padding:8px 0;border-top:1px dashed var(--dash);}
+.day.exam .ses{border-top-color:#8a8478;}
 .ses .dot{flex:none;width:10px;height:10px;margin-top:5px;background:var(--c);border:1.5px solid currentColor;}
 .ses .t{font-weight:600;font-size:.88rem;line-height:1.25;}
 .ses .s{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;opacity:.7;margin-top:2px;}
@@ -96,7 +102,7 @@ button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var
 .load.over i{background:var(--red);}
 
 /* ---------- misc ---------- */
-.empty{border:2px dashed var(--ink);padding:14px 16px;font-family:var(--serif);font-style:italic;font-size:1.1rem;}
+.empty{border:2px dashed var(--line);padding:14px 16px;font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--ink);}
 .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-family:var(--mono);font-weight:700;padding:6px 14px;transform:rotate(-3deg);letter-spacing:.12em;margin-top:12px;}
 @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 </style>
@@ -318,7 +324,7 @@ subjects_df = st.data_editor(
 if st.button("Build my plan", type="primary"):
     subjects = []
     for _, r in subjects_df.iterrows():
-        if not str(r["Subject"]).strip() or pd.isna(r["Subject"]) or pd.isna(r["Exam date"]):
+        if pd.isna(r["Subject"]) or not str(r["Subject"]).strip() or pd.isna(r["Exam date"]):
             continue
         subjects.append(
             {
@@ -372,7 +378,7 @@ if st.session_state.plan is not None:
     colors = {n: PALETTE[i % len(PALETTE)] for i, n in enumerate(info)}
     cap = {d: h * 60 for d, h in st.session_state.avail}
 
-    # placeholders: filled after the editor runs, but shown above it
+    # containers: filled after the editor runs, but displayed above it
     c_today = st.container()
     c_cd = st.container()
     c_board = st.container()
