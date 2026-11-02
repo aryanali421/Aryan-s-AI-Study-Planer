@@ -76,6 +76,17 @@ button[kind="primary"],button[data-testid="stBaseButton-primary"]{background:var
 .empty{border:2px dashed var(--ink);padding:14px 16px;font-family:var(--serif);font-style:italic;font-size:1.1rem;}
 .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);font-family:var(--mono);font-weight:700;padding:6px 14px;transform:rotate(-3deg);letter-spacing:.12em;margin-top:12px;}
 @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+
+[data-testid="stSidebar"] *{color:var(--ink)!important;}
+[data-testid="stSidebar"] label p,[data-testid="stSidebar"] h3{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;}
+[data-testid="stSidebar"] [data-baseweb="input"],
+[data-testid="stSidebar"] [data-baseweb="base-input"],
+[data-testid="stSidebar"] input{background:var(--paper)!important;color:var(--ink)!important;border-radius:0!important;}
+[data-testid="stSidebar"] [data-baseweb="input"]{border:2px solid var(--ink)!important;}
+[data-testid="stSidebar"] button{background:var(--card)!important;color:var(--ink)!important;border-radius:0!important;}
+[data-testid="stSidebar"] svg{fill:var(--ink)!important;}
+[data-testid="stSlider"] [role="slider"]{background:var(--red)!important;}
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
